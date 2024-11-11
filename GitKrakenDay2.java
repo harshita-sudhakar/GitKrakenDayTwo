@@ -4,6 +4,8 @@ public class GitKrakenDay2 implements Callable<Integer> { //implement callable i
 
     static int total = 0; //create my integer total that goes to a billion
     static ExecutorService executorService = Executors.newFixedThreadPool(1000); //an executor service is important in managing threads. you can submit tasks and manage a pool of threads (which we use in this case because we have 1000 threads that we want to manage)
+    static long startTime = System.nanoTime(); //current time at the start of the run
+
     public static void main (String [] args) {
         Future <Integer> future = executorService.submit(new GitKrakenDay2()); //using future, we submit our task that the executor service does into the future. future allows you to track the progress of an asynchronous thread
         for (int i = 0; i < 1000; i++) {
@@ -16,6 +18,8 @@ public class GitKrakenDay2 implements Callable<Integer> { //implement callable i
             }
         }
         System.out.println("the total is: " + total);
+        long elapsed = System.nanoTime() - startTime; //take current time, start time, and find elased time
+        System.out.println("the total time is: " + elapsed + " nanoseconds");
     }
 
     @Override
